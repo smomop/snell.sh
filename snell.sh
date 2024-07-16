@@ -14,7 +14,7 @@ mv -f snell-server /usr/local/bin/
 
 if [ ! -f ${CONF} ]; then
   mkdir -p /etc/snell/
-  /usr/local/bin/snell-server --wizard -c ${CONF}
+  snell-server --wizard -c ${CONF}
   cat ${CONF}
 fi
 
