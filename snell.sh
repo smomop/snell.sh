@@ -11,20 +11,9 @@ unzip -o snell.zip
  chmod +x snell-server
  mv -f snell-server /usr/local/bin/
  if [ -f ${CONF} ]; then
-   echo "Found existing config..."
-   else
-   if [ -z ${PSK} ]; then
-     PSK=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 16)
-     echo "Using generated PSK: ${PSK}"
-   else
-     echo "Using predefined PSK: ${PSK}"
-   fi
    mkdir /etc/snell/
-   echo "Generating new config..."
-   echo "[snell-server]" >>${CONF}
-   echo "listen = 0.0.0.0:13254" >>${CONF}
-   echo "psk = ${PSK}" >>${CONF}
-   echo "obfs = http" >>${CONF}
+   /usr/local/bin/snell-server --wizard -c ${CONF}
+   cat ${CONF}
  fi
  if [ -f ${SYSTEMD} ]; then
    echo "Found existing service..."
